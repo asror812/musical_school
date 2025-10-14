@@ -1,0 +1,11 @@
+services:
+  postgres:
+    container_name: postgres_school_db
+    image: postgres:16
+    environment:
+      POSTGRES_PASSWORD: 3875671
+      POSTGRES_USER: asror
+      POSTGRES_DB: school
+      PGDATA: /data/postgres
+    ports:
+      - "5555:5432"

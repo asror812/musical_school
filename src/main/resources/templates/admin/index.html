@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard - Musical School</title>
+    <link rel="stylesheet" th:href="@{/css/admin.css}" href="../static/css/admin.css">
+</head>
+<body>
+<div class="container">
+    <aside class="sidebar">
+        <div class="logo">MUSICAL SCHOOL</div>
+        <ul class="nav">
+            <li style="background-color: grey; font-size: 18px; padding: 15px; border-radius: 5px; list-style-type: none; display: inline-block;"><a th:href="@{/admins/dashboard}">Dashboard</a></li>
+            <li><a th:href="@{/pupils}">Pupils</a></li>
+            <li><a th:href="@{/teachers}">Teachers</a></li>
+            <li><a th:href="@{/lessons}">Lessons</a></li>
+            <li><a th:href="@{/subjects}">Subjects</a></li>
+        </ul>
+    </aside>
+
+    <main class="main">
+        <header class="topbar">
+            <span>ADMIN</span>
+            <div class="icons">
+                <span class="bell">🔔</span>
+                <span class="user">👤</span>
+            </div>
+        </header>
+
+        <section class="cards">
+            <div class="card stat"><h2>Pupils</h2><p th:text="${dashboard.getPupilsCount()}"></p></div>
+            <div class="card stat"><h2>Teachers</h2><p th:text="${dashboard.getTeachersCount()}"></p></div>
+            <div class="card stat"><h2>Lessons</h2><p th:text="${dashboard.getLessonsCount()}"></p></div>
+            <div class="card stat"><h2>Subjects</h2><p th:text="${dashboard.getSubjectCount()}"></p></div>
+        </section>
+
+        <section class="cards grid">
+            <div class="card">
+                <h3>Pupils Management</h3>
+                <p>Manage pupils information</p>
+                <a th:href="@{/pupils}" class="btn btn-primary">View</a>
+            </div>
+
+            <div class="card">
+                <h3>Teachers Management</h3>
+                <p>Manage teachers information</p>
+                <a th:href="@{/teachers}" class="btn btn-primary">View</a>
+            </div>
+            <div class="card">
+                <h3>Lessons Overview</h3>
+                <p>View and manage lessons</p>
+                <a th:href="@{/lessons}" class="btn btn-primary">View</a>
+            </div>
+
+            <div class="card">
+                <h3>Subjects Overview</h3>
+                <p>View all subjects</p>
+                <a th:href="@{/subjects}" class="btn btn-primary">View</a>
+            </div>
+        </section>
+
+    </main>
+</div>
+</body>
+</html>

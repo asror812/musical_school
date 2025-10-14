@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация завершена</title>
+    <link rel="stylesheet" th:href="@{/css/register-success.css}" href="../static/css/register-success.css">
+</head>
+<body>
+<div class="box">
+    <h1>🎉 Регистрация завершена</h1>
+    <p>Добро пожаловать в Музыкальную школу!</p>
+
+    <div class="credentials">
+        <p><strong>👤 Логин:</strong> <span th:text="${pupil.username}"></span></p>
+        <p><strong>🔒 Пароль:</strong> <span th:text="${pupil.password}"></span></p>
+    </div>
+
+    <p class="warning">⚠️ Пожалуйста, сохраните эти данные — они будут показаны только один раз.</p>
+
+    <div class="actions">
+        <button onclick="window.print()">Скачать как PDF</button>
+        <button onclick="copyCredentials()">Скопировать</button>
+        <br>
+        <a th:href="@{/login}" class="login-btn">Перейти ко входу</a>
+    </div>
+</div>
+
+<script>
+    function copyCredentials() {
+        const login = document.querySelector(".credentials span:first-child").textContent;
+        const pass = document.querySelector(".credentials span:last-child").textContent;
+        navigator.clipboard.writeText(`Логин: ${login}\nПароль: ${pass}`).then(() =>
+            alert("Данные скопированы!")
+        );
+    }
+</script>
+</body>
+</html>
