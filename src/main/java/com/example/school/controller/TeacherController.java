@@ -31,10 +31,6 @@ public class TeacherController {
 
     @PostMapping("/delete/{id}")
     public ModelAndView delete(@PathVariable String id) {
-
-        System.out.println(id);
-
-        /*teacherService.deleteLessons(id);*/
         teacherService.deleteById(UUID.fromString(id));
         return new ModelAndView("redirect:/teachers");
     }
