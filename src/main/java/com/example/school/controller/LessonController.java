@@ -13,10 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Arrays;
+import java.util.EnumMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -40,13 +38,7 @@ public class LessonController {
     public ModelAndView getAll() {
         ModelAndView modelAndView = new ModelAndView("lesson/index");
 
-        List<LessonResponseDTO> lessons = lessonService.getAll();
-        Map<String, List<LessonResponseDTO>> lessonsByDay = Arrays.stream(Day.values()).collect(Collectors.toMap(Enum::name, day -> lessons.stream().filter(lesson -> lesson.getDayOfWeek() == day).collect(Collectors.toList())));
-
-
-        for (Map.Entry<String, List<LessonResponseDTO>> dayListEntry : lessonsByDay.entrySet()) {
-            System.out.println(dayListEntry.getKey() + " " + dayListEntry.getValue());
-        }
+        EnumMap<Day, List<LessonResponseDTO>> lessonsByDay = lessonService.getScheduleByDay();
         modelAndView.addObject("lessons", lessonsByDay);
         return modelAndView;
     }

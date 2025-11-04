@@ -35,10 +35,12 @@ public class AttendanceService
         public void create(AttendanceCreateDTO createDTO) {
 
                 Lesson lesson = lessonRepository.findById(createDTO.getLessonId())
-                                .orElseThrow(() -> new EntityNotFoundException("Lesson with id: %s not found"));
+                                .orElseThrow(() -> new EntityNotFoundException(
+                                                "Lesson with id: %s not found".formatted(createDTO.getLessonId())));
 
                 Pupil pupil = pupilRepository.findById(createDTO.getPupilId())
-                                .orElseThrow(() -> new EntityNotFoundException("Pupil with id: %s not found"));
+                                .orElseThrow(() -> new EntityNotFoundException(
+                                                "Pupil with id: %s not found".formatted(createDTO.getPupilId())));
 
                 Attendance attendance = new Attendance();
                 attendance.setDate(createDTO.getDate());

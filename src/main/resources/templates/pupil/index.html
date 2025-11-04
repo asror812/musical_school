@@ -108,7 +108,7 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <span class="h5 mb-0">List of Pupils</span>
-                <button class="btn btn-primary btn-sm">+ Add Pupil</button>
+                <a class="btn btn-primary btn-sm" th:href="@{/register}">+ Add Pupil</a>
             </div>
             <div class="card-body p-0">
                 <div class="table-responsive">
@@ -118,7 +118,6 @@
                             <th>#</th>
                             <th>Full Name</th>
                             <th>Username</th>
-                            <th>Password</th>
                             <th>Date of Birth</th>
                             <th>Actions</th>
                         </tr>
@@ -128,7 +127,6 @@
                             <td th:text="${stat.index + 1}"></td>
                             <td th:text="${pupil.firstName + ' ' + pupil.lastName}"></td>
                             <td th:text="${pupil.username}"></td>
-                            <td th:text="${pupil.password}"></td>
                             <td th:text="${pupil.dateOfBirth}"></td>
                             <td>
                                 <div class="d-flex gap-1">

@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.school.dao.UserRepository;
@@ -33,7 +34,7 @@ public class UserService extends GenericService<UserResponseDTO, User, UUID>
 
     private final ModelMapper mapper;
 
-    private final UsernameGeneratorService usernameGeneratorService;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -42,9 +43,13 @@ public class UserService extends GenericService<UserResponseDTO, User, UUID>
     }
 
     public Role signIn(@Valid SignInDTO signInDTO) {
-        User usernameOrPasswordIncorrect = repository.findByUsernameAndPassword(signInDTO.getUsername(), signInDTO.getPassword())
+        User user = repository.findByUsername(signInDTO.getUsername())
                 .orElseThrow(() -> new UsernameNotFoundException("Username or password incorrect"));
 
-        return usernameOrPasswordIncorrect.getRole();
+        if (!passwordEncoder.matches(signInDTO.getPassword(), user.getPassword())) {
+            throw new UsernameNotFoundException("Username or password incorrect");
+        }
+
+        return user.getRole();
     }
 }

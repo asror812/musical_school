@@ -18,8 +18,5 @@ public interface UserRepository extends GenericRepository<User, UUID> {
 
     Optional<User> findByIdAndRole(UUID id, Role role);
 
-    Optional<User> findByUsernameAndPassword(String username, String password);
-
-
     Optional<User> findByUsername(String username);
 }

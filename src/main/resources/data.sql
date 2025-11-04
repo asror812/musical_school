@@ -67,6 +67,3 @@ INSERT INTO lessons (teacher_id, subject_id, day_of_week, start_time, end_time) 
 -- SUNDAY (2 lessons)
 ('825cc9f5-cf71-4240-af25-f5d192169713', 2, 'SUNDAY', '08:00:00', '09:00:00'),
 ('ca9645a9-3814-4439-ba61-5672a7326f58', 1, 'SUNDAY', '09:15:00', '10:15:00');
-
-
-SELECT * FROM  lessons

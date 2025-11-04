@@ -103,13 +103,13 @@
 
         <div>
             <div th:each="day : ${T(com.example.school.model.enums.Day).values()}">
-                <h4 th:text="${day.name()} + ' Lessons'" class="mt-4 text-primary"></h4>
+                <h4 th:text="${#strings.capitalize(day.name().toLowerCase())} + ' Lessons'" class="mt-4 text-primary"></h4>
 
-                <div th:if="${lessons.get(day.name()).isEmpty()}">
+                <div th:if="${#lists.isEmpty(lessons.get(day))}">
                     <p class="text-muted">No lessons scheduled for this day.</p>
                 </div>
 
-                <table th:if="${!#lists.isEmpty(lessons[day.name()])}" class="table table-bordered table-hover shadow-sm lesson-table">
+                <table th:if="${!#lists.isEmpty(lessons.get(day))}" class="table table-bordered table-hover shadow-sm lesson-table">
                     <colgroup>
                         <col span="1">
                         <col span="1">
@@ -125,7 +125,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="lesson : ${lessons.get(day.name())}" style="height: 60px">
+                    <tr th:each="lesson : ${lessons.get(day)}" style="height: 60px">
                         <td th:text="${lesson.getSubject().getName()}"></td>
                         <td th:text="${lesson.getTeacher().getFirstName() + ' ' + lesson.getTeacher().getLastName()}"></td>
                         <td th:text="${lesson.getFrom() + ' - ' + lesson.getTo()}"></td>

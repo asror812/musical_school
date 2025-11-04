@@ -1,10 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Teacher Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
+<body class="bg-light">
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3 mb-0">Teacher Details</h1>
+        <a th:href="@{/teachers}" class="btn btn-outline-secondary btn-sm">Back to Teachers</a>
+    </div>
 
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h2 class="h4 mb-0" th:text="${teacher.firstName + ' ' + teacher.lastName}">Teacher Name</h2>
+        </div>
+        <div class="card-body">
+            <div class="row gy-3">
+                <div class="col-md-6">
+                    <div class="border rounded p-3">
+                        <h5 class="text-muted text-uppercase fs-6">Account</h5>
+                        <p class="mb-1"><strong>Username:</strong> <span th:text="${teacher.username}"></span></p>
+                        <p class="mb-1"><strong>Email:</strong> <span class="text-muted">Not specified</span></p>
+                        <p class="mb-0"><strong>Date of Birth:</strong> <span th:text="${teacher.dateOfBirth}"></span></p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="border rounded p-3">
+                        <h5 class="text-muted text-uppercase fs-6">Contact</h5>
+                        <p class="mb-0"><strong>Phone:</strong>
+                            <span th:text="${teacher.phoneNumber != null ? teacher.phoneNumber : 'Not provided'}"></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <h5 class="text-muted text-uppercase fs-6">Specializations</h5>
+                <div th:if="${#lists.isEmpty(teacher.specializations)}" class="text-muted">No specializations assigned.</div>
+                <div th:if="${!#lists.isEmpty(teacher.specializations)}" class="d-flex flex-wrap gap-2">
+                    <span class="badge bg-secondary px-3 py-2" th:each="specialization : ${teacher.specializations}"
+                          th:text="${specialization.name}">Piano</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -115,7 +115,7 @@
                     <th>#</th>
                     <th>Full Name</th>
                     <th>Username</th>
-                    <th>Password</th>
+                    <th>Phone</th>
                     <th>Date of Birth</th>
                     <th>Specializations</th>
                     <th>Actions</th>
@@ -126,12 +126,14 @@
                     <td th:text="${iterStat.index + 1}"></td>
                     <td th:text="${teacher.firstName + ' ' + teacher.lastName}"></td>
                     <td th:text="${teacher.username}"></td>
-                    <td th:text="${teacher.password}"></td>
+                    <td th:text="${teacher.phoneNumber != null ? teacher.phoneNumber : '—'}"></td>
                     <td th:text="${teacher.dateOfBirth}"></td>
                     <td>
-                        <ul class="list-unstyled mb-0">
-                            <li th:each="subject : ${teacher.specializations}" th:text="${subject.name}">Piano</li>
-                        </ul>
+                        <div th:if="${#lists.isEmpty(teacher.specializations)}" class="text-muted">Not assigned</div>
+                        <div th:if="${!#lists.isEmpty(teacher.specializations)}" class="d-flex flex-wrap gap-1">
+                            <span class="badge bg-secondary" th:each="subject : ${teacher.specializations}"
+                                  th:text="${subject.name}">Piano</span>
+                        </div>
                     </td>
                     <td>
                         <div class="d-flex gap-1">

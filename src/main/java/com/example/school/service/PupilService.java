@@ -2,14 +2,15 @@ package com.example.school.service;
 
 import java.util.UUID;
 
-import com.example.school.model.enums.Role;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.school.dao.PupilRepository;
 import com.example.school.dto.request.PupilCreateDTO;
 import com.example.school.dto.response.PupilResponseDTO;
 import com.example.school.model.Pupil;
+import com.example.school.model.enums.Role;
 import com.example.school.utils.PasswordGeneratorUtil;
 
 import lombok.Getter;
@@ -26,6 +27,7 @@ public class PupilService extends GenericService<PupilResponseDTO, Pupil, UUID> 
     private final UsernameGeneratorService usernameGeneratorService;
 
     private final ModelMapper mapper;
+    private final PasswordEncoder passwordEncoder;
 
     public PupilResponseDTO register(PupilCreateDTO createDTO) {
         String username = usernameGeneratorService.generateUsername(createDTO.getFirstName(), createDTO.getLastName());
@@ -36,13 +38,15 @@ public class PupilService extends GenericService<PupilResponseDTO, Pupil, UUID> 
         pupil.setFirstName(createDTO.getFirstName());
         pupil.setLastName(createDTO.getLastName());
         pupil.setDateOfBirth(createDTO.getDateOfBirth());
-        pupil.setPassword(password);
+        pupil.setPassword(passwordEncoder.encode(password));
         pupil.setUsername(username);
         pupil.setRole(Role.PUPIL);
 
-        repository.save(pupil);
+        Pupil saved = repository.save(pupil);
 
-        return mapper.map(pupil, PupilResponseDTO.class);
+        PupilResponseDTO response = mapper.map(saved, PupilResponseDTO.class);
+        response.setPassword(password);
+        return response;
     }
 
 
